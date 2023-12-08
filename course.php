@@ -6,6 +6,16 @@
     
     include "includes/header.php";
 
+    if(!isset($_GET["id"])){
+        header("location:courses.php");
+        exit();
+    }
+    else{
+        $course = loadCourseById($conn, $_GET["id"]);
+        // print_r($course);
+        $courseMode = loadCourseModeById($conn, $course["mode"]);
+    }
+
 ?>
 
 <header class="container-fluid bg-light border-bottom border-secondary p-4">
@@ -16,49 +26,53 @@
     </div>
 </header>
 
-<div class="container mt-3">
+<div class="container mt-3" style="margin-bottom:100px;">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Course Title</h4>
+                    <h4>
+                        <?php echo $course["title"]; ?>
+                    </h4>
                 </div>
                 <div class="card-body border-bottom">
                     <p>
                         <b class="card-title">Course Code:</b>
                         <span class="card-text">
-                            Course Code
+                        <?php echo $course["code"]; ?>
                         </span>
                     </p>
                     <p>
                         <b class="card-title">ECTS:</b>
                         <span class="card-text">
-                            ECTS
+                        <?php echo $course["ects"]; ?>
                         </span>
                     </p>
                     <p>
                         <b class="card-title">Mode:</b>
                         <span class="card-text">
-                            Mode
+                        <?php 
+                        echo $courseMode["name"]; 
+                        ?>
                         </span>
                     </p>
                     <p>
                         <b class="card-title">Duration:</b>
                         <span class="card-text">
-                            Duration
+                        <?php echo $course["duration"]; ?>
                         </span>
                     </p>
                 </div>
                 <div class="card-body border-bottom">
                     <p class="card-text">
-                        Description
+                    <?php echo $course["decription"]; ?>
                     </p>
                 </div>
                 <div class="card-body border-bottom">
                     <p>
                         <p class="card-title fw-bold">Entry Requirements:</p>
                         <span class="card-text">
-                            Entry Requirements
+                        <?php echo $course["entryRequirements"]; ?>
                         </span>
                     </p>
                 </div>
